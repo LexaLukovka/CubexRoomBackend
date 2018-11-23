@@ -8,7 +8,10 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const passport = require('passport')
 
+const HallController = require('./app/Controllers/HallController')
+
 const authRoutes = require('./routes/auth')
+const hallRoutes = require('./routes/hall')
 const saveRoutes = require('./routes/saveReservation')
 
 const app = express()
@@ -27,6 +30,7 @@ app.use(morgan('dev'))
 app.use(passport.initialize())
 
 app.use('/', authRoutes)
+app.use('/', hallRoutes)
 app.use('/', saveRoutes)
 
 
@@ -43,5 +47,8 @@ app.use(function (err, req, res) {
   res.status(err.status || 500)
   res.render('error')
 });
+
+(function() {HallController.store()}())
+
 
 module.exports = app

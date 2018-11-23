@@ -29,6 +29,13 @@ const uniqueEmailFn = async function (data, field, message, args, get) {
   if (user) throw message
 }
 
+const myNameFn = async function (data, field, message, args, get) {
+  const value = get(data, field)
+  if (!value) return
+
+  if (!/^[a-zA-Zа-яА-ЯёЁ'][a-zA-Z-а-яА-ЯёЁ' ]+[a-zA-Zа-яА-ЯёЁ']?$/.test(value)) throw message
+}
+
 const matchesEmailFn = async function (data, field, message, args, get) {
   const value = get(data, field)
   if (!value) return
@@ -71,5 +78,6 @@ validator.extend('matchesEmail', matchesEmailFn)
 validator.extend('matchesVerify', matchesVerifyEmailFn)
 validator.extend('emailExists', emailExistsFn)
 validator.extend('myEmail', myEmailFn)
+validator.extend('myName', myNameFn)
 
 module.exports = validator

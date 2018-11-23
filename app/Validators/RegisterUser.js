@@ -1,7 +1,7 @@
 module.exports = class RegisterUser {
   get rules() {
     return {
-      name: 'required',
+      name: 'required|my_name',
       email: 'required|email|unique_email|my_email',
       password: 'required|min:6|max:30'
     }
@@ -9,6 +9,7 @@ module.exports = class RegisterUser {
 
   get messages() {
     return {
+      'name.my_name': 'Неправильно введено имя пользователя',
       'email.unique_email': 'Такой пользователь уже зарегистрирован!',
       'email.required': 'Введите email пожалуйста',
       'email.email': 'Неправильный email',
